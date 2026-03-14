@@ -21,13 +21,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 public class AccessFBView {
-
+    @FXML
+    TableColumn<Person, String> name_col = new TableColumn<>("Name");
+    @FXML
+    TableColumn<Person, String> age_col = new TableColumn<>("Age");
+    @FXML
+    TableColumn<Person, String> major_col = new TableColumn<>("Major");
+    @FXML
+    TableView tableView;
     @FXML
     private TextField email_txt;
     @FXML
@@ -54,6 +60,7 @@ public class AccessFBView {
     public ObservableList<Person> getListOfUsers() {
         return listOfUsers;
     }
+
 
     void initialize() {
 
@@ -82,12 +89,6 @@ public class AccessFBView {
     private void switchToSecondary() throws IOException {
         App.setRoot("/files/WebContainer.fxml");
     }
-
-
-
-
-
-
 
     public void addData() {
 
@@ -121,6 +122,12 @@ public class AccessFBView {
                             document.getData().get("Major")+ " , Age: "+
                             document.getData().get("Age")+ " \n ");
                     System.out.println(document.getId() + " => " + document.getData().get("Name"));
+
+                    name_col.setCellValueFactory(new PropertyValueFactory<>("Name"));
+                    major_col.setCellValueFactory(new PropertyValueFactory<>("Major"));
+                    age_col.setCellValueFactory(new PropertyValueFactory<>("Age"));
+                    tableView.setItems(getListOfUsers());
+
                     person  = new Person(String.valueOf(document.getData().get("Name")),
                             document.getData().get("Major").toString(),
                             Integer.parseInt(document.getData().get("Age").toString()));
