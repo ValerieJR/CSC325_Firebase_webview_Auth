@@ -102,8 +102,8 @@ public class WebContainerController implements Initializable {
         doc.getElementById("ueberschr").setAttribute("value", "Red");
     }
 
-    public TextField getUser_txt() {
-        return user_txt;
+    public String getUser_txt() {
+        return user_txt.getText();
     }
 
     public void verifyUser(String user_txt) throws FirebaseAuthException {
@@ -112,7 +112,7 @@ public class WebContainerController implements Initializable {
             //String url = user.getPassword();
             SwitchToFBView();
         } catch (Exception e) {
-            
+
         }
     }
 

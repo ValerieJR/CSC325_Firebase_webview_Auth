@@ -22,12 +22,20 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class AccessFBView {
 
-
+    @FXML
+    private TextField email_txt;
+    @FXML
+    private PasswordField pass_txt;
+    @FXML
+    private TextField phone_txt;
+    @FXML
+    private TextField disName_txt;
      @FXML
     private TextField nameField;
     @FXML
@@ -146,13 +154,31 @@ public class AccessFBView {
         App.setRoot("/files/WebContainer.fxml");
     }
 
+    public String getEmail(){
+        return email_txt.getText();
+    }
+
+    public String getPass(){
+        return pass_txt.getText();
+    }
+
+    public String getPhone(){
+        return phone_txt.getText();
+    }
+
+    public String getDisName(){
+        return disName_txt.getText();
+    }
+
+
+
     public boolean registerUser() {
         UserRecord.CreateRequest request = new UserRecord.CreateRequest()
-                .setEmail("user@example.com")
+                .setEmail(getEmail())
                 .setEmailVerified(false)
-                .setPassword("secretPassword")
-                .setPhoneNumber("+11234567890")
-                .setDisplayName("John Doe")
+                .setPassword(getPass())
+                .setPhoneNumber(getPhone())
+                .setDisplayName(getDisName())
                 .setDisabled(false);
 
         UserRecord userRecord;
