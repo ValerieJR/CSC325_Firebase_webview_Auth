@@ -26,8 +26,10 @@ public class App extends Application {
         fstore = contxtFirebase.firebase();
         fauth = FirebaseAuth.getInstance();
         scene = new Scene(loadFXML("/files/SplashScreen.fxml"));
+        scene.getStylesheets().add(getClass().getResource("/files/css.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
+
     }
 
     public static void setRoot(String fxml) throws IOException {
