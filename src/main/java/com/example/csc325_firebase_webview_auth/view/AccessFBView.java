@@ -142,6 +142,10 @@ public class AccessFBView {
         }
     }
 
+    public void BackToLogIn() throws IOException {
+        App.setRoot("/files/WebContainer.fxml");
+    }
+
     public boolean registerUser() {
         UserRecord.CreateRequest request = new UserRecord.CreateRequest()
                 .setEmail("user@example.com")

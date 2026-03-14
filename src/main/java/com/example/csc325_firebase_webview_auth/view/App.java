@@ -22,12 +22,12 @@ public class App extends Application {
     private final FirestoreContext contxtFirebase = new FirestoreContext();
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage stage) throws Exception {
         fstore = contxtFirebase.firebase();
         fauth = FirebaseAuth.getInstance();
         scene = new Scene(loadFXML("/files/SplashScreen.fxml"));
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        stage.setScene(scene);
+        stage.show();
     }
 
     public static void setRoot(String fxml) throws IOException {

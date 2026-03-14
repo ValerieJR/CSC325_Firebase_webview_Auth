@@ -4,6 +4,8 @@
  */
 package com.example.csc325_firebase_webview_auth.view;
 
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.UserRecord;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker.State;
@@ -104,13 +106,23 @@ public class WebContainerController implements Initializable {
         return user_txt;
     }
 
-    public boolean verifyUser(String user){
-        return true;
+    public void verifyUser(String user_txt) throws FirebaseAuthException {
+        try {
+            UserRecord user = App.fauth.getUser(user_txt);
+            //String url = user.getPassword();
+            SwitchToFBView();
+        } catch (Exception e) {
+            
+        }
     }
 
     @FXML
     private void SwitchToSignUp() throws IOException {
         App.setRoot("/files/SignUp.fxml");
+    }
+
+    private void SwitchToFBView() throws IOException {
+        App.setRoot("/files/AccessFBView.fxml");
     }
 
     @FXML
