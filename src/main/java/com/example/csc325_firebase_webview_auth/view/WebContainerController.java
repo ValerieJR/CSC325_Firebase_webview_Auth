@@ -106,11 +106,13 @@ public class WebContainerController implements Initializable {
         return user_txt.getText();
     }
 
-    public void verifyUser(String user_txt) throws FirebaseAuthException {
+    public void verifyUser() throws FirebaseAuthException {
         try {
-            UserRecord user = App.fauth.getUser(user_txt);
+            UserRecord user = App.fauth.getUserByEmail(getUser_txt());
             //String url = user.getPassword();
-            SwitchToFBView();
+            if(!(user ==null)){
+                SwitchToFBView();
+            }
         } catch (Exception e) {
 
         }
