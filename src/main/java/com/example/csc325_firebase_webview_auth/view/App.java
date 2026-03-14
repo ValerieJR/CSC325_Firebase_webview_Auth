@@ -3,8 +3,11 @@ package com.example.csc325_firebase_webview_auth.view;
 
 import com.example.csc325_firebase_webview_auth.model.FirestoreContext;
 import com.google.cloud.firestore.Firestore;
+import com.google.cloud.storage.Bucket;
 import com.google.firebase.auth.FirebaseAuth;
 import java.io.IOException;
+
+import com.google.firebase.cloud.StorageClient;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,6 +21,7 @@ public class App extends Application {
 
     public static Firestore fstore;
     public static FirebaseAuth fauth;
+    public static Bucket bucket;
     public static Scene scene;
     private final FirestoreContext contxtFirebase = new FirestoreContext();
 
@@ -25,6 +29,8 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
         fstore = contxtFirebase.firebase();
         fauth = FirebaseAuth.getInstance();
+        bucket = StorageClient.getInstance().bucket();
+
         scene = new Scene(loadFXML("/files/SplashScreen.fxml"));
         scene.getStylesheets().add(getClass().getResource("/files/css.css").toExternalForm());
         stage.setScene(scene);

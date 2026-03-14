@@ -10,7 +10,9 @@ import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
 
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,23 +23,35 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.scene.image.ImageView;
 import javafx.util.Callback;
 
+
+
+
 public class AccessFBView {
+    Stage stage;
     @FXML
-    TableColumn<Person, String> name_col = new TableColumn<>("Name");
+    private TableColumn<Person, String> name_col = new TableColumn<>("Name");
     @FXML
-    TableColumn<Person, String> age_col = new TableColumn<>("Age");
+    private TableColumn<Person, String> age_col = new TableColumn<>("Age");
     @FXML
-    TableColumn<Person, String> major_col = new TableColumn<>("Major");
+    private TableColumn<Person, String> major_col = new TableColumn<>("Major");
     @FXML
-    TableView tableView;
+    private TableView tableView;
     @FXML
+    Button upload;
     private TextField email_txt;
     @FXML
     private PasswordField pass_txt;
+    @FXML
+    private ImageView img;
     @FXML
     private TextField phone_txt;
     @FXML
@@ -101,6 +115,32 @@ public class AccessFBView {
         //asynchronously write data
         ApiFuture<WriteResult> result = docRef.set(data);
     }
+
+    @FXML
+    private void profilePic(ActionEvent event) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Upload Profile Picutre");
+        // Show the dialog
+        File file = fileChooser.showOpenDialog(stage); // You can pass a stage reference here
+        if (file != null) {
+            // Do something interesting with the file, such as reading its contents
+            uploadToFB(String.valueOf(file));
+           // Image pic = new Image(String.valueOf(file.getAbsolutePath()));
+          //  img.setImage(pic);
+            System.out.println("Selected file: " + file.getAbsolutePath());
+        }
+
+    }
+
+    private void uploadToFB(String file) throws IOException {
+        InputStream fileInputStream = new FileInputStream(file);
+        byte[] fileBytes = Files.readAllBytes(Paths.get(file));
+        String blobName = (file);
+        App.bucket.create(blobName, fileInputStream, "image/jpeg");
+        System.out.println("File " + file + " uploaded to Storage");
+    }
+
+
 
         public boolean readFirebase()
          {
