@@ -11,6 +11,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
@@ -76,8 +78,12 @@ public class WebContainerController implements Initializable {
  
     @FXML
     Label label;
-    
-    
+
+    @FXML
+    PasswordField pass_txt;
+
+    @FXML
+    TextField user_txt;
     
     @FXML
     WebView webView;
@@ -93,7 +99,20 @@ public class WebContainerController implements Initializable {
 
         doc.getElementById("ueberschr").setAttribute("value", "Red");
     }
-    
+
+    public TextField getUser_txt() {
+        return user_txt;
+    }
+
+    public boolean verifyUser(String user){
+        return true;
+    }
+
+    @FXML
+    private void SwitchToSignUp() throws IOException {
+        App.setRoot("/files/SignUp.fxml");
+    }
+
     @FXML
     private void swithcBackStage(ActionEvent e){
         try {

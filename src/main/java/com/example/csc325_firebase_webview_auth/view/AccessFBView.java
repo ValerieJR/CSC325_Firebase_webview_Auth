@@ -75,6 +75,12 @@ public class AccessFBView {
         App.setRoot("/files/WebContainer.fxml");
     }
 
+
+
+
+
+
+
     public void addData() {
 
         DocumentReference docRef = App.fstore.collection("References").document(UUID.randomUUID().toString());
